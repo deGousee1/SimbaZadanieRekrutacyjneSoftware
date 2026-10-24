@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include <array>
 
 enum RocketState : uint8_t {
     DISARM = 0,
@@ -19,7 +20,6 @@ public:
      * @param value - Odczyt wysokości w stopach
      */
     void onBaroReading(bool error, uint16_t value);
-
     /**
      * @brief Pobiera bieżący stan, składa go w 32-bitową ramkę z sumą kontrolną i zapisuje do bufora.
      */
@@ -30,4 +30,18 @@ public:
      * @return Ostatnia ramka zapisana do bufora, jeśli xor się zgadza. 0xFFFFFFFF jeśli suma kontrolna jest niepoprawna.
      */
     uint32_t getLastDataframe();
+
+private:
+    bool baroError = false;
+    bool parachute = false;
+    uint16_t altitude = 0;
+    int state_ = 0;
+    uint8_t byte0 = 0;
+    uint8_t byte1 = 0;
+    uint8_t byte2 = 0;
+    uint8_t checksum = 0;
+    uint32_t frame = 0;
+    int pointer = 0;
+    std::array<uint32_t, 16> buffer{};
+    uint32_t lastDataframe = 0;
 };
