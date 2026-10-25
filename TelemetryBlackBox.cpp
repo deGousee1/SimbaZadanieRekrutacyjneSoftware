@@ -103,10 +103,12 @@ uint32_t TelemetryBlackBox::getLastDataframe() {
     std::cout << "State: " << stateFinal << " | Parachute: " << parachuteFinal << " | Baro: " << baroErrorFinal << " | Reserved: " << std::bitset<3>(reservedCout) << " | Altitude: " << altitudeCout << " feet" << " | Checksum: " << std::bitset<8>(checksumC) << std::endl;
 
     // Return ostatniej ramki lub kodu błędu jeśli checksum się nie zgadza
+    checksumTestFlag = false;
     if (checksum_ == checksumC) {
         return lastDataframe;
     } else {
         std::cout << "Checksum error" << '\n';
+        checksumTestFlag = true;
         return 0xFFFFFFFF;
     }
 }

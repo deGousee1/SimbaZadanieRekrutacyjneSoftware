@@ -1,7 +1,6 @@
 #pragma once
 #include <cstdint>
 #include <array>
-#include "Test.h"
 
 enum RocketState : uint8_t {
     DISARM = 0,
@@ -42,4 +41,6 @@ private:
     int pointer = 0;
     std::array<uint32_t, 16> buffer{};
     uint32_t lastDataframe = 0;
+    // Deklaracja zmiennej flagi testu checksum. Przydatne tylko i wyłacznie do przeprowadzenia jednego z testów. Nie jest niezbędne, ale pozwala wydrukować na konsoli informację o powodzeniu testu.
+    bool checksumTestFlag = false;
 };
