@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(SimbaRekrutacyjneSoftware main.cpp
         TelemetryBlackBox.cpp
-        TelemetryBlackBox.h)
+        TelemetryBlackBox.h
+        Test.cpp
+        Test.h)

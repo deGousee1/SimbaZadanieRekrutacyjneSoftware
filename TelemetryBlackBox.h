@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <array>
+#include "Test.h"
 
 enum RocketState : uint8_t {
     DISARM = 0,
@@ -30,6 +31,7 @@ public:
      * @return Ostatnia ramka zapisana do bufora, jeśli xor się zgadza. 0xFFFFFFFF jeśli suma kontrolna jest niepoprawna.
      */
     uint32_t getLastDataframe();
+    friend class Test;
 
 private:
     // Deklaracje pól klasy

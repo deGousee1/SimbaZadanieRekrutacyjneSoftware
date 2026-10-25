@@ -1,48 +1,29 @@
+#include <iostream>
+#include <ostream>
+
 #include "TelemetryBlackBox.h"
+#include "Test.h"
 
 int main() {
-    TelemetryBlackBox box; // Utworzenie obiektu czarnej skrzynki
-    box.onRocketStateChange(DISARM);
-    box.onBaroReading(false, 200); // Wysokość powinna zostać wyzerowana
-    box.recordCurrentState();
-    box.getLastDataframe();
-
-    box.onRocketStateChange(ARM); // Sprawdzenie stanu ARM
-    box.recordCurrentState();
-    box.getLastDataframe();
-
-    // Symulacja lotu z awarią barometru na powrocie
-    box.onRocketStateChange(FLIGHT);
-    for (int i = 0; i < 24; i++) {
-        box.onBaroReading(false, (250 + i*1000));
-        box.recordCurrentState();
-        box.getLastDataframe();
-    }
-    box.onParachuteDeployed();
-    box.onRocketStateChange(PARACHUTE);
-    for (int i = 0; i < 24; i++) {
-        if (i > 15) {
-            box.onBaroReading(true, (23250 - i*1000));
-        } else {
-            box.onBaroReading(false, (23250 - i*1000));
-        }
-        box.recordCurrentState();
-        box.getLastDataframe();
+    int testID;
+    std::cout << "Input 1 for a flight test without simulated failures" << std::endl;
+    std::cout << "Input 2 for a flight test with a simulated baro failure" << std::endl;
+    std::cout << "Input 3 for a buffer test" << std::endl;
+    std::cout << "Input 4 for a checksum error flag test" << std::endl;
+    std::cin >> testID;
+    if (testID == 1) {
+        Test test;
+        test.testFlightNoFailure();
+    } else if (testID == 2) {
+        Test test;
+        Test::testFlightBaroError();
+    } else if (testID == 3) {
+        Test test;
+        Test::bufferTest();
+    } else if (testID == 4) {
+        Test test;
+        Test::checksumTest();
     }
 
-    // Symulacja lotu bez awarii
-    box.onRocketStateChange(FLIGHT);
-    for (int i = 0; i < 24; i++) {
-        box.onBaroReading(false, (250 + i*1000));
-        box.recordCurrentState();
-        box.getLastDataframe();
-    }
-    box.onParachuteDeployed();
-    box.onRocketStateChange(PARACHUTE);
-    for (int i = 0; i < 24; i++) {
-        box.onBaroReading(false, (23250 - i*1000));
-        box.recordCurrentState();
-        box.getLastDataframe();
-    }
     return 0;
 }
