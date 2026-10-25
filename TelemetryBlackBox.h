@@ -32,15 +32,11 @@ public:
     uint32_t getLastDataframe();
 
 private:
+    // Deklaracje pól klasy
     bool baroError = false;
     bool parachute = false;
     uint16_t altitude = 0;
     int state_ = 0;
-    uint8_t byte0 = 0;
-    uint8_t byte1 = 0;
-    uint8_t byte2 = 0;
-    uint8_t checksum = 0;
-    uint32_t frame = 0;
     int pointer = 0;
     std::array<uint32_t, 16> buffer{};
     uint32_t lastDataframe = 0;
