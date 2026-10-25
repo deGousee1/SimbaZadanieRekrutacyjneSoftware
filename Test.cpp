@@ -119,8 +119,8 @@ void Test::checksumTest() {
     // Program powinien zwrócić "Checksum error" i to już wystarczajacy rezultat testu, ale dla jasności dodałem jeszcze flagę zrobioną pod sam test
     // Sprawdzenie flagi testu checksum i wydrukowanie wyniku testu na konsoli
     if (box.checksumTestFlag == true) {
-        std::cout << "Checksum test successful" << std::endl;
+        std::cout << "Checksum error flag test successful" << std::endl;
     } else {
-        std::cout << "Checksum test failed" << std::endl;
+        std::cout << "Checksum error flag test failed" << std::endl;
     }
 }
