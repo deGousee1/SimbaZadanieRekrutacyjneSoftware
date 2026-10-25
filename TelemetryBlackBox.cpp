@@ -100,7 +100,7 @@ uint32_t TelemetryBlackBox::getLastDataframe() {
     uint16_t altitudeCout = (lastDataframe >> 8) & 0b1111111111111111;
 
     // Cout na konsolę
-    std::cout << "State: " << stateFinal << "| Parachute: " << parachuteFinal << "| Baro: " << baroErrorFinal << "| Reserved: " << std::bitset<3>(reservedCout) << "| Altitude: " << altitudeCout << " feet" << " Checksum: " << std::bitset<8>(checksumC) << std::endl;
+    std::cout << "State: " << stateFinal << " | Parachute: " << parachuteFinal << " | Baro: " << baroErrorFinal << " | Reserved: " << std::bitset<3>(reservedCout) << " | Altitude: " << altitudeCout << " feet" << " | Checksum: " << std::bitset<8>(checksumC) << std::endl;
 
     // Return ostatniej ramki lub kodu błędu jeśli checksum się nie zgadza
     if (checksum_ == checksumC) {

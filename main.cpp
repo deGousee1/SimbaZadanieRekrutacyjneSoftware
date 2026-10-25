@@ -2,15 +2,47 @@
 
 int main() {
     TelemetryBlackBox box; // Utworzenie obiektu czarnej skrzynki
-    for (int i = 0; i < 32; i++) {
-        box.onRocketStateChange(FLIGHT);
-        box.onBaroReading(false, 5000);
+    box.onRocketStateChange(DISARM);
+    box.onBaroReading(false, 200); // Wysokość powinna zostać wyzerowana
+    box.recordCurrentState();
+    box.getLastDataframe();
+
+    box.onRocketStateChange(ARM); // Sprawdzenie stanu ARM
+    box.recordCurrentState();
+    box.getLastDataframe();
+
+    // Symulacja lotu z awarią barometru na powrocie
+    box.onRocketStateChange(FLIGHT);
+    for (int i = 0; i < 24; i++) {
+        box.onBaroReading(false, (250 + i*1000));
         box.recordCurrentState();
         box.getLastDataframe();
-        box.onRocketStateChange(FLIGHT);
-        box.onBaroReading(true, 6000);
+    }
+    box.onParachuteDeployed();
+    box.onRocketStateChange(PARACHUTE);
+    for (int i = 0; i < 24; i++) {
+        if (i > 15) {
+            box.onBaroReading(true, (23250 - i*1000));
+        } else {
+            box.onBaroReading(false, (23250 - i*1000));
+        }
         box.recordCurrentState();
         box.getLastDataframe();
-    } // Prymitywny kod testowy wywołujący poszczególne funkcje
+    }
+
+    // Symulacja lotu bez awarii
+    box.onRocketStateChange(FLIGHT);
+    for (int i = 0; i < 24; i++) {
+        box.onBaroReading(false, (250 + i*1000));
+        box.recordCurrentState();
+        box.getLastDataframe();
+    }
+    box.onParachuteDeployed();
+    box.onRocketStateChange(PARACHUTE);
+    for (int i = 0; i < 24; i++) {
+        box.onBaroReading(false, (23250 - i*1000));
+        box.recordCurrentState();
+        box.getLastDataframe();
+    }
     return 0;
 }
