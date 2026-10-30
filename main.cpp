@@ -20,16 +20,12 @@ int main() {
         }
         // Wywoływanie odpowiednich testów i kodu wyjścia
         if (testID == 1) {
-            Test test;
-            test.testFlightNoFailure();
+            Test::testFlightNoFailure();
         } else if (testID == 2) {
-            Test test;
             Test::testFlightBaroError();
         } else if (testID == 3) {
-            Test test;
             Test::bufferTest();
         } else if (testID == 4) {
-            Test test;
             Test::checksumTest();
         } else if (testID == 0) {
             return 0;
